@@ -21,7 +21,7 @@ class App : Application() {
     val endRect = Rectangle(100.0, 100.0, 10.0, 10.0)
 
     var startTime = Double.NaN
-    val trajectories = TrajectoryGen.createTrajectory()
+    val trajectories = if (TrajectoryGen.isAutoPaths) TrajectoryGen.AutoPaths.createTrajectory() else TrajectoryGen.TeleOpPaths.createTrajectory()
 
     lateinit var fieldImage: Image
     lateinit var stage: Stage
@@ -81,7 +81,10 @@ class App : Application() {
 
         gc.globalAlpha = 0.5
         GraphicsUtil.setColor(Color.RED)
-        TrajectoryGen.drawOffbounds()
+        if(TrajectoryGen.isAutoPaths)
+            TrajectoryGen.AutoPaths.drawOffbounds()
+        else
+            TrajectoryGen.TeleOpPaths.drawOffbounds()
         gc.globalAlpha = 1.0
 
         val trajectory = trajectories[activeTrajectoryIndex]
