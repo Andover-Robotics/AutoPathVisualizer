@@ -12,7 +12,8 @@ object GraphicsUtil {
 
     val FIELD_WIDTH = 144.0 // 12'
 
-    val ROBOT_WIDTH = 18.0
+    val ROBOT_WIDTH = 11.25
+    val ROBOT_HEIGHT = 18.0
 
     val LINE_THICKNESS = 3.0
 
@@ -75,13 +76,14 @@ object GraphicsUtil {
 
     fun updateRobotRect(rectangle: Rectangle, pose2d: Pose2d, color: Color, opacity: Double) {
         val pix_w = ROBOT_WIDTH * pixelsPerInch
+        val pix_h = ROBOT_HEIGHT * pixelsPerInch
 
         rectangle.width = pix_w
-        rectangle.height = pix_w
+        rectangle.height = pix_h
 
         val center_pix = pose2d.vec().toPixel
         rectangle.x = center_pix.x - pix_w / 2.0
-        rectangle.y = center_pix.y - pix_w / 2.0
+        rectangle.y = center_pix.y - pix_h / 2.0
         rectangle.fill = color
         rectangle.opacity = opacity
         rectangle.rotate = Math.toDegrees(-pose2d.heading)
